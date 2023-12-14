@@ -64,7 +64,7 @@ h2 {
 .jsgrid {
     color: #2D4356;
     font-size: 14px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     height: 600px;
 }
 
@@ -85,4 +85,16 @@ h2 {
 .jsgrid-row {
     height: 50px;
     background-color: azure;
+}
+
+.grid-sec {
+    width: 90%;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.5s;
+    transition-property: transform;
+    text-align: center;
 }
