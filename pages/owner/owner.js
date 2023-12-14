@@ -1,5 +1,95 @@
 $(document).ready(() => {
 
+
+
+    
+     // the handler for the click event of the submit button
+     $("#loginform").submit(event => {
+        let isValid = true;
+        
+        // Retrieve the data from localStorage
+        const storedData = localStorage.getItem('adminData');
+  
+        // Parse the stored JSON data
+        const parsedData = JSON.parse(storedData);
+  
+  
+        // Check if the data is not null or undefined
+        if (parsedData) {
+          // Extract the owners array from the parsed data
+          const owners = parsedData.owners;
+  
+          // Loop through the owners array
+          for (const owner of owners) {
+              // Extract the contact email and password
+              const contactEmail = owner.contactEmail;
+              const ownerpassword = owner.password;
+  
+  
+              // validate the email entry with a regular expression
+        const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/;
+        const email = $("#email").val().trim();
+    
+        if (email == "") {
+           $("#email").next().text("This field is required.");
+           isValid = false;
+        } else if (!emailPattern.test(email)) {
+           $("#email").next().text("Must be a valid email address.");
+           isValid = false;
+        }
+        else
+        {
+            if(email!==contactEmail)
+            {
+                $("#email").next().text("This Email is not register");
+                isValid = false;
+            }
+            else
+            {
+                $("#email").next().text("");
+               
+               
+            }
+            
+        }
+        $("#email").val(email);
+    
+        // validate the password entry
+        const password = $("#password").val().trim();
+        if (password.length < 6) {
+           $("#password").next().text("Must be 6 or more characters.");
+           isValid = false;
+        } 
+        else 
+        { 
+            if(password!==ownerpassword)
+            {
+                $("#password").next().text("Password is Wrong");
+                isValid = false;
+            }
+            else
+            {
+                $("#password").next().text("");
+                window.location.href = '../owner/owner.html'
+               
+            }
+          
+        }
+        $("#passwordd").val(password);
+   
+        // prevent the submission of the form if any entries are invalid 
+        if (isValid == false) {
+           event.preventDefault();
+        }
+    
+  
+          }
+        } 
+    
+        
+     });
+  
+
   let adminData;
   let stocks;
 
