@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="customer.css">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    <title>StockMate | Owners</title>
+</head>
+
+<body>
+    <header class="header">
+        <a href="../users/users.html" class="logo">StockMate</a>
+        <ul>
+            <li>
+                <a href="customer.html">Product</a>
+            </li>
+            <li>
+                <a href="cart.html">Cart</a>
+            </li>
+        </ul>
+   </header>
+   <main>
+       <div class="container">
+            <table class="cart_table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Desc</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cartDataItem">
+                </tbody>
+            </table>
+       </div>
+   </main>
+    <footer>
+        <p>@StockMate/Dwij</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+    <script src="./owner.js"></script>
+    <script src="./cart.js"></script>
+    <script src="./customer.js"></script>
+</body>
+
+</html>
