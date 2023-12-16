@@ -3,7 +3,9 @@ var totalCartItems = [];
 function addToCart(data,quantity){
     var exisitItem = totalCartItems.find(item=> item.id === data.id);
     if(exisitItem){
-        exisitItem.quantity += exisitItem;
+        let qty = parseInt(exisitItem.quantity)
+        qty += qty;
+        exisitItem.quantity = qty
     }
     else{
         totalCartItems.push({id: data.id, flavor: data.flavor, description: data.description, quantity: quantity, price:data.price});
@@ -60,5 +62,9 @@ function removeProductFromCart(){
  totalCartItems.splice(productIndex,1);
  displayCartData();
  saveItemToLocalStorage();
+}
+
+const goToCheckout = () => {
+    window.location.href = './checkout/checkout.html'
 }
 
