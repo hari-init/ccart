@@ -4,3 +4,7 @@ const goToAdmin = () => {
 const goToOwner = () => {
     window.location.href = '../owner/owner_login.html'
 }
+
+const goToCustomer = () => {
+    window.location.href = '../customer/customer.html'
+}

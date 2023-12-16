@@ -47,7 +47,6 @@ function displayCartData(){
     }
 
     var removeProduct = $("#removeItem");
-    console.log('removeProduct', removeProduct);
     for(var i=0; i < removeProduct.length; i++){
         removeProduct[i].addEventListener('click',removeProductFromCart);
     }

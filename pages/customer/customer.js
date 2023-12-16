@@ -3,6 +3,7 @@ $(document).ready(function () {
   stocks = [
     {
       id: 1,
+      productId: 'DQ',
       flavor: "Vanilla",
       description:
         "Classic vanilla flavor with a rich and creamy taste. Perfect for those who love the timeless simplicity of vanilla.",
@@ -13,6 +14,7 @@ $(document).ready(function () {
     },
     {
       id: 2,
+      productId: 'DQ',
       flavor: "Chocolate",
       description:
         "Indulge in the richness of our chocolate ice cream. Made with premium cocoa for a delightful chocolate experience.",
@@ -23,6 +25,7 @@ $(document).ready(function () {
     },
     {
       id: 3,
+      productId: 'walmart',
       flavor: "Strawberry",
       description:
         "Experience the freshness of ripe strawberries in every scoop. A fruity and delightful treat for strawberry lovers.",
@@ -33,6 +36,7 @@ $(document).ready(function () {
     },
     {
       id: 4,
+      productId: 'walmart',
       flavor: "Mint Chocolate Chip",
       description:
         "Cool and refreshing mint ice cream combined with decadent chocolate chips. A perfect blend of flavors.",
@@ -43,6 +47,7 @@ $(document).ready(function () {
     },
     {
       id: 5,
+      productId: 'walmart',
       flavor: "Cookies and Cream",
       description:
         "Irresistible combination of vanilla ice cream with chunks of chocolate cookies. A classic favorite for cookie enthusiasts.",
@@ -53,6 +58,7 @@ $(document).ready(function () {
     },
     {
       id: 6,
+      productId: 'bulkban',
       flavor: "Rocky Road",
       description:
         "A delightful mix of chocolate ice cream, marshmallows, and nuts. Indulge in the rocky road experience!",
@@ -63,6 +69,7 @@ $(document).ready(function () {
     },
     {
       id: 7,
+      productId: 'bulkban',
       flavor: "Butter Pecan",
       description:
         "Rich buttery ice cream with crunchy pecans. A perfect blend of sweet and nutty flavors.",
@@ -73,6 +80,7 @@ $(document).ready(function () {
     },
     {
       id: 8,
+      productId: 'bulkban',
       flavor: "Pistachio",
       description:
         "Smooth pistachio-flavored ice cream with real pistachio pieces. A delightful treat for pistachio lovers.",
@@ -84,19 +92,43 @@ $(document).ready(function () {
   ];
 
   var productContainer = $("#productContainer");
-  productContainer.empty();
 
-  $.each(stocks, function (index, data) {
-    var dataHtml = '<div class="product_list '+index+ '">';
-    dataHtml += "<h4>" + data.flavor + "</h4>";
-    dataHtml += "<p>" + data.description + "</p>";
-    dataHtml += "<span>Quantity: " + data.quantity + "</span>";
-    dataHtml += "<span>Price: " + data.price + "</span>";
-    dataHtml += "<span>"+data.allergenInfo +"</span>";
-    dataHtml += "<a href='product.html?id="+data.id+"'>Product Details</a>";
-    dataHtml += "</div>";
-    productContainer.append(dataHtml);
+  function filterStock(category){
+    if(category === 'all'){
+      return stocks;
+    }
+    else{
+      return stocks.filter(function (stock){
+        return stock.productId === category;
+      });
+    }
+  }
+
+  $("#productFilter").on('change',function(){
+    var selectedCategory = $(this).val();
+    var filteredStock = filterStock(selectedCategory);
+    console.log(filteredStock);
+    renderProducts(filteredStock);
   });
+
+  function renderProducts(dataArray){
+    productContainer.empty();
+    
+  
+    $.each(dataArray, function (index, data) {
+      var dataHtml = '<div class="product_list '+index+ '">';
+      dataHtml += "<h4>" + data.flavor + "</h4>";
+      dataHtml += "<label>Store Name: " + data.productId + "</label>";
+      dataHtml += "<p>" + data.description + "</p>";
+      dataHtml += "<span>Quantity: " + data.quantity + "</span>";
+      dataHtml += "<span>Price: " + data.price + "</span>";
+      dataHtml += "<span>"+data.allergenInfo +"</span>";
+      dataHtml += "<a href='product.html?id="+data.id+"'>Product Details</a>";
+      dataHtml += "</div>";
+      productContainer.append(dataHtml);
+    });
+  }
+  renderProducts(stocks);
 
   const url = new URLSearchParams(window.location.search);
   const productDataId = parseInt(url.get('id'));
