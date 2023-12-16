@@ -305,13 +305,20 @@ footer{
     cursor: pointer;
 }
 
-.product_detail_container .product_list #addToCart{
+#addToCart,
+.addToCart{
     background: #2D4356;
     color: #fff;
     font-size: 16px;
     border: 0;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+.addToCart {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
 .cart_table{
     width: 100%;
