@@ -1,84 +1,107 @@
 $(document).ready(() => {
 
-    const stocks = [
+
+
+    
+     // the handler for the click event of the submit button
+     $("#loginform").submit(event => {
+        let isValid = true;
+        
+        // Retrieve the data from localStorage
+        const storedData = localStorage.getItem('adminData');
+  
+        // Parse the stored JSON data
+        const parsedData = JSON.parse(storedData);
+  
+  
+        // Check if the data is not null or undefined
+        if (parsedData) {
+          // Extract the owners array from the parsed data
+          const owners = parsedData.owners;
+  
+          // Loop through the owners array
+          for (const owner of owners) {
+              // Extract the contact email and password
+              const contactEmail = owner.contactEmail;
+              const ownerpassword = owner.password;
+  
+  
+              // validate the email entry with a regular expression
+        const emailPattern = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b/;
+        const email = $("#email").val().trim();
+    
+        if (email == "") {
+           $("#email").next().text("This field is required.");
+           isValid = false;
+        } else if (!emailPattern.test(email)) {
+           $("#email").next().text("Must be a valid email address.");
+           isValid = false;
+        }
+        else
         {
-            "id": 1,
-            "flavor": "Vanilla",
-            "description": "Classic vanilla flavor with a rich and creamy taste. Perfect for those who love the timeless simplicity of vanilla.",
-            "quantity": 100,
-            "price": 2.50,
-            "allergenInfo": ["milk"],
-            "featured": true
-          },
-          {
-            "id": 2,
-            "flavor": "Chocolate",
-            "description": "Indulge in the richness of our chocolate ice cream. Made with premium cocoa for a delightful chocolate experience.",
-            "quantity": 80,
-            "price": 3.00,
-            "allergenInfo": ["milk", "soy"],
-            "featured": false
-          },
-          {
-            "id": 3,
-            "flavor": "Strawberry",
-            "description": "Experience the freshness of ripe strawberries in every scoop. A fruity and delightful treat for strawberry lovers.",
-            "quantity": 120,
-            "price": 3.50,
-            "allergenInfo": ["milk"],
-            "featured": true
-          },
-          {
-            "id": 4,
-            "flavor": "Mint Chocolate Chip",
-            "description": "Cool and refreshing mint ice cream combined with decadent chocolate chips. A perfect blend of flavors.",
-            "quantity": 60,
-            "price": 4.00,
-            "allergenInfo": ["milk"],
-            "featured": false
-          },
-          {
-            "id": 5,
-            "flavor": "Cookies and Cream",
-            "description": "Irresistible combination of vanilla ice cream with chunks of chocolate cookies. A classic favorite for cookie enthusiasts.",
-            "quantity": 90,
-            "price": 4.50,
-            "allergenInfo": ["milk", "wheat"],
-            "featured": true
-          },
-          {
-            "id": 6,
-            "flavor": "Rocky Road",
-            "description": "A delightful mix of chocolate ice cream, marshmallows, and nuts. Indulge in the rocky road experience!",
-            "quantity": 70,
-            "price": 4.25,
-            "allergenInfo": ["milk", "nuts"],
-            "featured": false
-          },
-          {
-            "id": 7,
-            "flavor": "Butter Pecan",
-            "description": "Rich buttery ice cream with crunchy pecans. A perfect blend of sweet and nutty flavors.",
-            "quantity": 50,
-            "price": 4.75,
-            "allergenInfo": ["milk", "nuts"],
-            "featured": true
-          },
-          {
-            "id": 8,
-            "flavor": "Pistachio",
-            "description": "Smooth pistachio-flavored ice cream with real pistachio pieces. A delightful treat for pistachio lovers.",
-            "quantity": 65,
-            "price": 5.00,
-            "allergenInfo": ["milk", "nuts"],
-            "featured": false
+            if(email!==contactEmail)
+            {
+                $("#email").next().text("This Email is not register");
+                isValid = false;
+            }
+            else
+            {
+                $("#email").next().text("");
+               
+               
+            }
+            
+        }
+        $("#email").val(email);
+    
+        // validate the password entry
+        const password = $("#password").val().trim();
+        if (password.length < 6) {
+           $("#password").next().text("Must be 6 or more characters.");
+           isValid = false;
+        } 
+        else 
+        { 
+            if(password!==ownerpassword)
+            {
+                $("#password").next().text("Password is Wrong");
+                isValid = false;
+            }
+            else
+            {
+                $("#password").next().text("");
+                window.location.href = '../owner/owner.html'
+               
+            }
+          
+        }
+        $("#passwordd").val(password);
+   
+        // prevent the submission of the form if any entries are invalid 
+        if (isValid == false) {
+           event.preventDefault();
+        }
+    
+  
           }
-    ]
+        } 
+    
+        
+     });
+  
+
+  let adminData;
+  let stocks;
+
+  if (localStorage.getItem('adminData')) {
+      adminData = JSON.parse(localStorage.getItem('adminData'));
+      stocks = adminData.stores[0].stocks
+  } 
 
     $("#stockGrid").jsGrid({
         height: "600px",
         width: "100%",
-
+        name:  'stocks',
         inserting: true,
         filtering: true,
         editing: true,
@@ -94,7 +117,41 @@ $(document).ready(() => {
             { name: "price", align: "center", title: "Price", type: "text", width: 90, sorting: false },
             { name: "allergenInfo", align: "center", title: "Allergen Info", type: "array", width: 90, sorting: false },
             { type: "control" }
-        ]
+        ],
+        onItemInserted: (node) => {
+          if (node.grid.name === 'stocks') {
+              stocks.unshift(node.item);
+              adminData.stores[0].stocks = stocks; // need to update with dynamic data
+              localStorage.setItem('adminData', JSON.stringify(adminData));
+              $("#storeGrid").jsGrid("refresh");
+          }
+      },
+      onItemDeleted: (node) => {
+          if (node.grid.name === 'stocks') {
+              for (let i = 0; i < stocks.length; i++) {
+                  if (stocks[i].id === node.item.id) {
+                     stocks.splice(i, 1);
+                      break;
+                  }
+                  adminData.stores[0].stocks = stocks; // need to update with dynamic data
+                  localStorage.setItem('adminData', JSON.stringify(adminData));
+                  $("#storeGrid").jsGrid("refresh");
+              }
+          }
+      },
+      onItemUpdated: (node) => {
+          if (node.grid.name === 'stocks') {
+              for (let i = 0; i < stocks.length; i++) {
+                  if (stocks[i].id === node.item.id) {
+                      stocks[i] = node.item;
+                      break;
+                  }
+              }
+              adminData.stores[0].stocks = stocks; // need to update with dynamic data
+              localStorage.setItem('adminData', JSON.stringify(adminData));
+              $("#storeGrid").jsGrid("refresh");
+          }
+      }
     });
 
-})
+});

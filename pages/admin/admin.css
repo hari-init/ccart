@@ -59,12 +59,76 @@ h2 {
     padding: 6px 12px;
 }
 
+/* admin_login.html css */
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-button {
+    background-color: #2D4356;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.lc-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-button:hover {
+    background-color: #2D4356;
+}
+
+.form-span {
+	color: red;
+	font-size: 87.5%;
+	margin-left: .5em;
+}
+
+
+
+
+
 /* grid Css */
 
 .jsgrid {
     color: #2D4356;
     font-size: 14px;
-    margin-top: 20px;
     height: 600px;
 }
 
@@ -85,4 +149,16 @@ h2 {
 .jsgrid-row {
     height: 50px;
     background-color: azure;
+}
+
+.grid-sec {
+    width: 90%;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: perspective(1px) translateZ(0);
+    transition-duration: 0.5s;
+    transition-property: transform;
+    text-align: center;
 }
