@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <link rel="stylesheet" href="./layout.css" />
+
+</head>
+
+<body>
+    <div id="sidebar">
+        <img src="../assets/logo.png" alt="Logo">
+        <a onclick="changeTheFrame('user')" href="#users"><img src="../assets/user.svg" alt="user"></a>
+        <a onclick="changeTheFrame('contact')" href="#contact"><img src="../assets/contact.svg" alt="contact"></a>
+    </div>
+
+    <div id="content"></div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="./layout.js"></script>
+</body>
+
+</html>
